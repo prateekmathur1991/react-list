@@ -7,6 +7,13 @@ export default function App() {
             <h1>Task Manager</h1>
             <input type="text" placeholder="Enter a task" />
             <button>Add Task</button>
+            <ul>
+                <li>Some Random Task</li>
+                <li>Some Random Task</li>
+                <li>Some Random Task</li>
+                <li>Some Random Task</li>
+                <li>Some Random Task</li>
+            </ul>
         </>
     );
 }
