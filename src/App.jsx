@@ -5,26 +5,35 @@ import { useState } from "react";
 import TaskItem from "./TaskItem";
 
 const tasksArray = [
-    {id : 1, name: 'Buy Groceries'}, 
-    {id : 2, name : 'Buy Fruits'}, 
-    {id : 3, name : 'Charge Phone'}, 
-    {id : 4, name : 'Complete all tasks'}
+    { id: 1, name: 'Buy Groceries' },
+    { id: 2, name: 'Buy Fruits' },
+    { id: 3, name: 'Charge Phone' },
+    { id: 4, name: 'Complete all tasks' }
 ];
 
+let nextId = 0;
 
 export default function App() {
-    
+
     const [tasks, setTasks] = useState(tasksArray);
-    const [input, setInput] = useState('');
+    const [inputValue, setInput] = useState('');
+
+    const handleAddTask = () => {
+        if (!inputValue) {
+            return;
+        }
+        setTasks([...tasks, {id : nextId++, name : inputValue}]);
+        setInput('');
+    };
 
     return (
         <>
             <h1>Task Manager</h1>
-            <input type="text" value={input} onChange={(event) => setInput(event.target.value)} placeholder="Enter a task" />
-            <button>Add Task</button>
+            <input type="text" value={inputValue} onChange={(event) => setInput(event.target.value)} placeholder="Enter a task" />
+            <button onClick={handleAddTask}>Add Task</button>
             <ul>
-                {tasksArray.map((task) => (
-                    <TaskItem key={task.id} name={task.name} />
+                {tasks.map((task, index) => (
+                    <TaskItem key={index} name={task.name} />
                 ))}
             </ul>
         </>
