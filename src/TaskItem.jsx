@@ -1,5 +1,7 @@
-export default function TaskItem({id, name }) {
+export default function TaskItem({id, name, onDelete }) {
     return (
-        <li>{name}</li>
+        <div style={{display: 'flex'}}>
+            <li>{name}</li> &nbsp; &nbsp; &nbsp; <button data-id={id} onClick={onDelete}>Delete</button>
+        </div>
     );
 }

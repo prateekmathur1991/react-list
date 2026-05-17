@@ -4,27 +4,30 @@
 import { useState } from "react";
 import TaskItem from "./TaskItem";
 
-const tasksArray = [
-    { id: 1, name: 'Buy Groceries' },
-    { id: 2, name: 'Buy Fruits' },
-    { id: 3, name: 'Charge Phone' },
-    { id: 4, name: 'Complete all tasks' }
-];
-
 let nextId = 0;
 
 export default function App() {
 
-    const [tasks, setTasks] = useState(tasksArray);
+    const [tasks, setTasks] = useState([
+        { id: nextId++, name: 'Buy Groceries' },
+        { id: nextId++, name: 'Buy Fruits' },
+        { id: nextId++, name: 'Charge Phone' },
+        { id: nextId++, name: 'Complete all tasks' }
+    ]);
+    
     const [inputValue, setInput] = useState('');
 
     const handleAddTask = () => {
         if (!inputValue) {
             return;
         }
-        setTasks([...tasks, {id : nextId++, name : inputValue}]);
+        setTasks([...tasks, { id: nextId++, name: inputValue }]);
         setInput('');
     };
+
+    const handleDeleteTask = () => {
+        console.log('You just clicked delete');
+    }
 
     return (
         <>
@@ -32,8 +35,8 @@ export default function App() {
             <input type="text" value={inputValue} onChange={(event) => setInput(event.target.value)} placeholder="Enter a task" />
             <button onClick={handleAddTask}>Add Task</button>
             <ul>
-                {tasks.map((task, index) => (
-                    <TaskItem key={index} name={task.name} />
+                {tasks.map((task) => (
+                    <TaskItem key={task.id} id={task.id} name={task.name} onDelete={handleDeleteTask} />
                 ))}
             </ul>
         </>
