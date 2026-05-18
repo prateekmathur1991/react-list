@@ -4,7 +4,7 @@
 import { useState } from "react";
 import TaskItem from "./TaskItem";
 
-let nextId = 0;
+let nextId = 1;
 
 export default function App() {
 
@@ -25,8 +25,8 @@ export default function App() {
         setInput('');
     };
 
-    const handleDeleteTask = () => {
-        console.log('You just clicked delete');
+    const handleDeleteTask = (event) => {
+        setTasks(tasks.filter(task => task.id != Number(event.target.dataset.id)));
     }
 
     return (
