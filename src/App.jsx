@@ -26,11 +26,17 @@ export default function App() {
     };
 
     const handleDeleteTask = (event) => {
-        setTasks(tasks.filter(task => task.id != Number(event.target.dataset.id)));
+        setTasks(tasks.filter(task => task.id !== Number(event.target.dataset.id)));
     }
 
     const onCompleteToggle = (event) => {
-        
+        console.log(event.target.checked);
+        setTasks(tasks.map(task => {
+            if (task.id === Number(event.target.dataset.id)) {
+                return { ...task, completed: !task.completed };
+            }
+            return task;
+        }));
     }
 
     return (
@@ -40,7 +46,7 @@ export default function App() {
             <button onClick={handleAddTask}>Add Task</button>
             <ul>
                 {tasks.map((task) => (
-                    <TaskItem key={task.id} id={task.id} name={task.name} onDelete={handleDeleteTask} onCompleteToggle={onCompleteToggle} />
+                    <TaskItem key={task.id} id={task.id} name={task.name} completed={task.completed} onDelete={handleDeleteTask} onCompleteToggle={onCompleteToggle} />
                 ))}
             </ul>
         </>
