@@ -9,10 +9,10 @@ let nextId = 1;
 export default function App() {
 
     const [tasks, setTasks] = useState([
-        { id: nextId++, name: 'Buy Groceries' },
-        { id: nextId++, name: 'Buy Fruits' },
-        { id: nextId++, name: 'Charge Phone' },
-        { id: nextId++, name: 'Complete all tasks' }
+        { id: nextId++, name: 'Buy Groceries', completed : false },
+        { id: nextId++, name: 'Buy Fruits', completed : false },
+        { id: nextId++, name: 'Charge Phone', completed : false },
+        { id: nextId++, name: 'Complete all tasks', completed : false }
     ]);
     
     const [inputValue, setInput] = useState('');
@@ -29,6 +29,10 @@ export default function App() {
         setTasks(tasks.filter(task => task.id != Number(event.target.dataset.id)));
     }
 
+    const onCompleteToggle = (event) => {
+        
+    }
+
     return (
         <>
             <h1>Task Manager</h1>
@@ -36,7 +40,7 @@ export default function App() {
             <button onClick={handleAddTask}>Add Task</button>
             <ul>
                 {tasks.map((task) => (
-                    <TaskItem key={task.id} id={task.id} name={task.name} onDelete={handleDeleteTask} />
+                    <TaskItem key={task.id} id={task.id} name={task.name} onDelete={handleDeleteTask} onCompleteToggle={onCompleteToggle} />
                 ))}
             </ul>
         </>
