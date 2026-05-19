@@ -1,7 +1,4 @@
-// This is a React component that serves as the main entry point for the Task Manager application. 
-// It currently renders a simple heading.
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
 
 let nextId = 1;
@@ -16,6 +13,10 @@ export default function App() {
     ]);
     
     const [inputValue, setInput] = useState('');
+
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]);
 
     const handleAddTask = () => {
         if (!inputValue) {
