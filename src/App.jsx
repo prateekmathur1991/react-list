@@ -5,16 +5,16 @@ let nextId = 1;
 
 export default function App() {
 
-    const [tasks, setTasks] = useState([
-        { id: nextId++, name: 'Buy Groceries', completed : false },
-        { id: nextId++, name: 'Buy Fruits', completed : false },
-        { id: nextId++, name: 'Charge Phone', completed : false },
-        { id: nextId++, name: 'Complete all tasks', completed : false }
-    ]);
+    const [tasks, setTasks] = useState(() => {
+        const storedTasks = localStorage.getItem('tasks');
+        return storedTasks ? JSON.parse(storedTasks) : [];
+    });
     
     const [inputValue, setInput] = useState('');
 
+    // This persists the tasks in local storage whenever they change
     useEffect(() => {
+        console.log('Saving tasks to local storage:', tasks);
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
 
