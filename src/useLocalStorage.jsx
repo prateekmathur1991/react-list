@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
 
-export default function useLocalStorage(key, initialValue = []) {
+export default function useLocalStorage(key, initialValue) {
 
-    const [tasks, setTasks] = useState(() => {
-        const storedTasks = localStorage.getItem(key);
-        return storedTasks ? JSON.parse(storedTasks) : initialValue;
+    const [value, setValue] = useState(() => {
+        const storedValue = localStorage.getItem(key);
+        if (!storedValue) {
+            return initialValue;
+        }
+        if (key === 'tasks') {
+            return JSON.parse(storedValue);
+        }
+        return storedValue;
     });
 
-    // This persists the tasks in local storage whenever they change
+    // This persists the value in local storage whenever it changes
     useEffect(() => {
-        localStorage.setItem(key, JSON.stringify(tasks));
-    }, [tasks]);
+        localStorage.setItem(key, key === 'tasks' ? JSON.stringify(value) : value);
+    }, [value, key]);
 
-    return [tasks, setTasks];
+    return [value, setValue];
 }

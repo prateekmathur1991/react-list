@@ -2,19 +2,21 @@ import { useState } from "react";
 import TaskItem from "./TaskItem";
 import useLocalStorage from "./useLocalStorage";
 
-let nextId = 1;
-
 export default function App() {
 
     const [tasks, setTasks] = useLocalStorage('tasks', []);
+    let [id, setId] = useLocalStorage('id', 0);
+
     const [inputValue, setInput] = useState('');
 
     const handleAddTask = () => {
         if (!inputValue) {
             return;
         }
-        setTasks([...tasks, { id: nextId++, name: inputValue }]);
+        id++;
+        setTasks([...tasks, { id: id, name: inputValue }]);
         setInput('');
+        setId(id);
     };
 
     const handleDeleteTask = (event) => {
