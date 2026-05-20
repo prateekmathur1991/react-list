@@ -1,22 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TaskItem from "./TaskItem";
+import useLocalStorage from "./useLocalStorage";
 
 let nextId = 1;
 
 export default function App() {
 
-    const [tasks, setTasks] = useState(() => {
-        const storedTasks = localStorage.getItem('tasks');
-        return storedTasks ? JSON.parse(storedTasks) : [];
-    });
-    
+    const [tasks, setTasks] = useLocalStorage('tasks', []);
     const [inputValue, setInput] = useState('');
-
-    // This persists the tasks in local storage whenever they change
-    useEffect(() => {
-        console.log('Saving tasks to local storage:', tasks);
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }, [tasks]);
 
     const handleAddTask = () => {
         if (!inputValue) {
